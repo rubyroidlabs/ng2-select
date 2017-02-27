@@ -4,23 +4,8 @@ import { escapeRegexp } from './common';
 @Pipe({name: 'highlight'})
 export class HighlightPipe implements PipeTransform {
   public transform(value:string, query:string):any {
-    if (query.length < 1) {
-      return value;
-    }
-
-    if ( query ) {
-        let tagRE    = new RegExp('<[^<>]*>', 'ig');
-        // get ist of tags
-        let tagList  = value.match( tagRE );
-        // Replace tags with token
-        let tmpValue = value.replace( tagRE, '$!$');
-        // Replace search words
-        value = tmpValue.replace(new RegExp(escapeRegexp(query), 'gi'), '<strong>$&</strong>');
-        // Reinsert HTML
-        for (let i = 0; value.indexOf('$!$') > -1; i++) {
-          value = value.replace('$!$', tagList[i]);
-        }
-    }
+    // HACK
+    // Wait when https://github.com/valor-software/ng2-select/issues/633 is fixed
     return value;
   }
 
